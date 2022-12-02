@@ -43,12 +43,23 @@ def _get_color():
     return next(_get_color_generator())
 
 
+def build_type_of_checking(t: TypeOfChecking) -> str:
+    match t.lower():
+        case "ремонт" | "ремонты":
+            return "Р"
+        case  "подключение"|"подключения":
+            return "П"
+        case other:
+            return other
+
+
 def build_caption(
     person_name: PersonName, type_of_checking: TypeOfChecking, address_description: str
 ) -> str:
     last_name = person_name.partition(" ")[-1] or person_name
     apartment = address_description.split()[-1]
-    return f"{last_name} {type_of_checking.lower()} {apartment}"
+    type = build_type_of_checking(type_of_checking)
+    return f"{last_name} {type} {apartment}"
 
 
 async def _build_feature(
