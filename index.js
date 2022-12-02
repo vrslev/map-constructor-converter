@@ -31,8 +31,8 @@ document.getElementById("input")?.addEventListener(
   "change",
   async (event) => {
     const file = event.target.files[0];
-    const content = await readFile(file);
-    const geoJson = await getGeojson(apiKey, content);
+    const routes = await readFile(file);
+    const geoJson = await getGeojson(routes);
     const blob = new Blob([geoJson], { type: "application/geo+json" });
     await downloadBlob(blob, getOutputPath());
   },
