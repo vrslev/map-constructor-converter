@@ -1,6 +1,6 @@
 import pytest
 
-from geodecoder.convert import build_caption
+from geodecoder.convert import _build_caption
 from geodecoder.routes import PersonName, TypeOfChecking
 
 
@@ -20,4 +20,4 @@ def test_build_caption(
     address_description: str,
     result: str,
 ):
-    assert build_caption(person_name, type_of_checking, address_description) == result
+    assert _build_caption(person_name, type_of_checking, address_description) == result
