@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "geodecoder"
+version = "0"
+description = ""
+authors = ["Lev Vereshchagin <mail@vrslev.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.10"
+pydantic = "^1.10.2"
+
+[tool.poetry.group.dev.dependencies]
+httpx = "^0.23.1"
+pytest = "^7.2.0"
+typer = "^0.7.0"
+watchfiles = "^0.18.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+typeCheckingMode = "strict"
+ignore = ["dist"]
+
+[tool.poetry.scripts]
+geodecoder = "geodecoder.main:app"
+
+[tool.isort]
+profile = "black"
