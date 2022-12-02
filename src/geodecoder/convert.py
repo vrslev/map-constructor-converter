@@ -43,6 +43,14 @@ def _get_color():
     return next(_get_color_generator())
 
 
+def build_caption(
+    person_name: PersonName, type_of_checking: TypeOfChecking, address_description: str
+) -> str:
+    last_name = person_name.partition(" ")[-1] or person_name
+    apartment = address_description.split()[-1]
+    return f"{last_name} {type_of_checking.lower()} {apartment}"
+
+
 async def _build_feature(
     id: int,
     address: Address,
@@ -55,9 +63,13 @@ async def _build_feature(
         id=id,
         geometry=Point(coordinates=await get_coordinates(address=address.description)),
         properties=Properties(
-            description=f"{person_name} — {type_of_checking.lower()}\n{address.plan_url}",
-            iconCaption=address.description,
-            marker_color=color,
+            description=f"{address.description} \n{address.plan_url}",
+            iconCaption=build_caption(
+                person_name=person_name,
+                type_of_checking=type_of_checking,
+                address_description=address.description,
+            ),
+            marker_color=color,  # pyright: ignore
         ),
     )
 
