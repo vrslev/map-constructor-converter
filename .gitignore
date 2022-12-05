@@ -1,4 +1,4 @@
-.DS_Store
-.venv
-.pytest_cache
+node_modules
 dist
+.env
+.DS_Store

@@ -2,22 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geodecoder</title>
-    <link
-      rel="stylesheet"
-      href="https://pyscript.net/releases/2022.09.1/pyscript.css"
-    />
-    <script
-      defer
-      src="https://pyscript.net/releases/2022.09.1/pyscript.js"
-    ></script>
   </head>
   <body>
-    <input type="file" id="input" />
-    <py-config src="pyscript.toml"></py-config>
-    <py-script src="index.py"></py-script>
-    <script type="module" defer src="index.js"></script>
+    <div class="buttons">
+      <div>
+        <input type="file" id="routes-to-geojson" hidden />
+        <label for="routes-to-geojson">Для Яндекс.Карт</label>
+      </div>
+      <div>
+        <input type="file" id="geojson-to-routes" hidden />
+        <label for="geojson-to-routes">Из Яндекс.Карт</label>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

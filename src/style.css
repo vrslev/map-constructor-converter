@@ -1,0 +1,14 @@
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+label {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
