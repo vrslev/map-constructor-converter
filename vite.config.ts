@@ -1,7 +1,7 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  base: "/geodecoder/",
+  base: "/map-constructor-converter/",
   define: {
     "import.meta.vitest": "undefined",
   },
