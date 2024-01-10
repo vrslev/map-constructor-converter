@@ -1,9 +1,9 @@
-import { z } from 'zod'
+import { z, ZodError } from 'zod'
 
 const addressSchema = z.object({
   description: z.string(),
   // planUrl: z.string().url()
-  planUrl: z.string()
+  planUrl: z.string().optional()
 })
 
 type PersonName = string
@@ -60,7 +60,14 @@ export function parseRoutes (content: string): Routes {
           description: line.replace(/^(Ситилинк, )/, '').trim(),
           planUrl: lines[idx + 1]
         }
+        try{
         curRoutes.push(addressSchema.parse(address))
+        } catch (e) {
+            if (e instanceof ZodError) {
+                console.log(e)
+            }
+            throw e;
+        }
       }
       throwNextLine = !throwNextLine
     }
@@ -81,7 +88,7 @@ export function dumpRoutes (routes: Routes): string {
 
       for (const address of addresses) {
         personRoutesLines.push(`Ситилинк, ${address.description}`)
-        personRoutesLines.push(address.planUrl)
+        personRoutesLines.push(address.planUrl || "")
       }
 
       personLines = personLines.concat(personRoutesLines)
