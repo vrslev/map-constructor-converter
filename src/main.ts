@@ -53,8 +53,8 @@ function withShowingError(promise: Promise<void>): void {
   const el = document.getElementById("error") as HTMLElement;
   el.innerHTML = "";
 
-  promise.catch((reason) => {
-    el.innerHTML = reason;
+  promise.catch((e) => {
+    el.innerText = [e.name, e.message, e.stack].join("\n");
   });
 }
 
@@ -71,4 +71,3 @@ function withShowingError(promise: Promise<void>): void {
     if (el.files != null) withShowingError(from_(el.files[0]));
   });
 }
-
