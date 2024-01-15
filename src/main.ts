@@ -24,7 +24,7 @@ async function downloadBlob(blob: Blob, filename: string): Promise<void> {
           URL.revokeObjectURL(url);
           resolve();
         }, 150),
-      false
+      false,
     );
     a.click();
   });
@@ -32,7 +32,10 @@ async function downloadBlob(blob: Blob, filename: string): Promise<void> {
 
 async function to(file: File): Promise<void> {
   const routes = await readFile(file);
-  const geoJson = await toGeojson(routes, import.meta.env.VITE_YANDEX_GEODECODE_API_KEY);
+  const geoJson = await toGeojson(
+    routes,
+    import.meta.env.VITE_YANDEX_GEODECODE_API_KEY,
+  );
   const blob = new Blob([geoJson], { type: "application/geo+json" });
   const name = `${new Date().toJSON()}.geojson`;
   await downloadBlob(blob, name);
@@ -40,26 +43,32 @@ async function to(file: File): Promise<void> {
 
 async function from_(file: File): Promise<void> {
   const routes = await readFile(file);
-  const geoJson = await fromGeojson(routes);
+  const geoJson = fromGeojson(routes);
   const blob = new Blob([geoJson], { type: "text/plain" });
   const name = `${new Date().toJSON()}.txt`;
   await downloadBlob(blob, name);
 }
 
-{
-  const to_el = document.getElementById(
-    "routes-to-geojson"
-  ) as HTMLInputElement;
-  to_el?.addEventListener("change", () => {
-    if (to_el.files != null) to(to_el.files[0]);
+function withShowingError(promise: Promise<void>): void {
+  const el = document.getElementById("error") as HTMLElement;
+  el.innerHTML = "";
+
+  promise.catch((reason) => {
+    el.innerHTML = reason;
   });
 }
 
 {
-  const from_el = document.getElementById(
-    "geojson-to-routes"
-  ) as HTMLInputElement;
-  from_el?.addEventListener("change", () => {
-    if (from_el.files != null) from_(from_el.files[0]);
+  const el = document.getElementById("routes-to-geojson") as HTMLInputElement;
+  el.addEventListener("change", () => {
+    if (el.files != null) withShowingError(to(el.files[0]));
   });
 }
+
+{
+  const el = document.getElementById("geojson-to-routes") as HTMLInputElement;
+  el.addEventListener("change", () => {
+    if (el.files != null) withShowingError(from_(el.files[0]));
+  });
+}
+
