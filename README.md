@@ -1,6 +1,8 @@
-# geodecoder
-
 The reason this repository is public is free hosting on GitHub Pages.
+
+---
+
+# geodecoder
 
 Convert from format:
 
