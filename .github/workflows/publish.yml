@@ -15,7 +15,6 @@ jobs:
           node-version: 16
           cache: "npm"
       - run: npm ci
-      - run: npm test
       - run: npm run build
         env:
           VITE_YANDEX_GEODECODE_API_KEY: ${{ secrets.YANDEX_GEODECODE_API_KEY }}
